@@ -1,0 +1,231 @@
+<html lang="en">
+	<head>
+		<title>Bootstrap Example</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<div class="jumbotron text-center">
+			<h2>Plasma Cash demo using four different <span style="color:blue">User Accounts</span>(Public Address)</h2>
+		</div>
+		<div class="container">
+			<div class="row">
+				
+				<div id="left" class="mt-2 col-sm-6" style="background-color:white;">
+					<div id="1" class="mt-20 col-sm-12" style="background-color: grey">
+						<p id="user1_address"></p>
+						<div id="sync_state1"></div>
+						<button type="button" class="btn btn-default btn-md" onclick="loadXMLDoc1()" style="background-color:yellow">Refresh</button>
+					</div>
+					
+					<div id="2" class="mt-2 col-sm-12" style="background-color: grey">
+						<p id="user2_address"></p>
+						<div id="sync_state2"></div>
+						<button type="button" class="btn btn-default btn-md" onclick="loadXMLDoc2()" style="background-color:yellow">Refresh</button>
+					</div>
+					
+
+					<div id="3" class="mt-2 col-sm-12" style="background-color: grey">
+						<p id="user3_address"></p>
+						<div id="sync_state3"></div>
+						<button type="button" class="btn btn-default btn-md" onclick="loadXMLDoc3()" style="background-color:yellow">Refresh</button>
+					</div>
+
+					<div id="4" class="mt-2 col-sm-12" style="background-color: grey">
+						<p id="user4_address"></p>
+						<div id="sync_state4"></div>
+						<button type="button" class="btn btn-default btn-md" onclick="loadXMLDoc4()" style="background-color:yellow">Refresh</button>
+					</div>
+				</div>
+				
+				<div id="right" class="mt-2 col-sm-6" style="background-color:white;">
+					<div >Details and History of selected UID:</div>
+					<div id="uid" class="col-sm-12 text-left"></div>
+					<div id="history" class="col-sm-12" style="background-color:white;"></div>
+				</div>
+			</div>
+			</div>
+		<script>
+			var myVar = setInterval(timedRefresh, 30000);
+			function timedRefresh() {
+				loadXMLDoc1();
+				loadXMLDoc2();
+				loadXMLDoc3();
+				loadXMLDoc4();
+			}
+
+			function loadXMLDoc1() {
+			  	var xhttp = new XMLHttpRequest();
+			  	xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+			    		var parsedData = JSON.parse(this.responseText);
+			    		console.log(parsedData["tokens"]);
+			    		document.getElementById("sync_state1").innerHTML = "uids list<br>";
+			    		parsedData["tokens"].forEach(
+			    			function(item){
+					  			myFunction("sync_state1", item[0])
+						});
+				    }
+			  	};
+			  	xhttp.open("GET", "http://localhost:5001/sync_state", true);
+			  	xhttp.send();
+			}
+
+			function loadXMLDoc2() {
+			  	var xhttp = new XMLHttpRequest();
+			  	xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+			    		var parsedData = JSON.parse(this.responseText);
+			    		console.log(parsedData["tokens"]);
+			    		document.getElementById("sync_state2").innerHTML = "uids list<br>";
+			    		parsedData["tokens"].forEach(
+			    			function(item){
+					  			myFunction("sync_state2", item[0])
+						});
+				    }
+			  	};
+			  	xhttp.open("GET", "http://localhost:5002/sync_state", true);
+			  	xhttp.send();
+			}
+
+			function loadXMLDoc3() {
+			  	var xhttp = new XMLHttpRequest();
+			  	xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+			    		var parsedData = JSON.parse(this.responseText);
+			    		console.log(parsedData["tokens"]);
+			    		document.getElementById("sync_state3").innerHTML = "uids list<br>";
+			    		parsedData["tokens"].forEach(
+			    			function(item){
+					  			myFunction("sync_state3", item[0])
+						});
+				    }
+			  	};
+			  	xhttp.open("GET", "http://localhost:5003/sync_state", true);
+			  	xhttp.send();
+			}
+
+			function loadXMLDoc4() {
+			  	var xhttp = new XMLHttpRequest();
+			  	xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+			    		var parsedData = JSON.parse(this.responseText);
+			    		console.log(parsedData["tokens"]);
+			    		document.getElementById("sync_state4").innerHTML = "uids list<br>";
+			    		parsedData["tokens"].forEach(
+			    			function(item){
+					  			myFunction("sync_state4", item[0])
+						});
+				    }
+			  	};
+			  	xhttp.open("GET", "http://localhost:5004/sync_state", true);
+			  	xhttp.send();
+			}
+
+			function myFunction(div, item_name) {
+				var btn = document.createElement("BUTTON");
+				btn.id = item_name;
+				btn.setAttribute("class", "btn btn-default btn-md");
+				btn.setAttribute("style", "background-color:white");
+				var span = document.createElement("span");
+				span.setAttribute("class", "fa fa-coffee");
+				btn.appendChild(span);
+				document.getElementById(div).appendChild(btn);
+				btn.onclick = showDetails;
+			}		
+
+			function myFunction1() {
+				var address = prompt("Please enter receipt public address", "");
+				if (address != null && address != "") {
+					console.log(this.innerHTML);
+					var x = document.getElementById(this.innerHTML).parentElement.id;
+					x = document.getElementById(x).parentElement.id;
+					console.log(x);
+				  	var params = "new_owner="+address;
+				  	var xhttp = new XMLHttpRequest();
+				  	xhttp.onreadystatechange = function() {
+					    if (this.readyState == 4 && this.status == 200) {
+				    		console.log(this.responseText);
+					    }
+				  	};
+				  	var url = "http://localhost:500"+x+"/transfer/"+this.innerHTML
+				  	xhttp.open("GET", url + "?" + params, true);
+				  	xhttp.send();
+				}
+			}
+
+			function showDetails() {
+				var x = document.getElementById(this.id).parentElement.id;
+				x = document.getElementById(x).parentElement.id;
+				console.log(x);
+
+			
+				var para = document.createElement("p");
+				para.innerHTML = "UID (click on uid to transfer it) <br>"
+
+				var btn = document.createElement("BUTTON");
+				btn.innerHTML = this.id;
+				document.getElementById("uid").appendChild(para);
+				document.getElementById("uid").appendChild(btn);
+				btn.onclick = myFunction1;
+
+				
+			  	var xhttp = new XMLHttpRequest();
+			  	xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+				    	var parsedData = JSON.parse(this.responseText);
+				    	const keysSorted = Object.keys(parsedData).sort(function(a,b){return b-a})
+						console.log(keysSorted);
+				    	var len = Object.keys(parsedData).length;
+				    	document.getElementById("history").innerHTML = "history (in descending order)<br>";
+				    	for (i = 0 ; i < len; i++) {
+						  	var new_div = document.createElement("div");
+						  	new_div.innerHTML = "block number -> " + keysSorted[i] + "<br>" + "owner ->" + parsedData[keysSorted[i]]["new_owner"];
+						  	new_div.setAttribute("class", "mt-2 col-sm-12");
+						  	new_div.setAttribute("style", "background-color: grey");
+						  	document.getElementById("history").appendChild(new_div);
+
+						}
+			    		
+				    }
+			  	};
+			  	var url = "http://localhost:500"+x+"/get_history/"+this.id
+			  	xhttp.open("GET", url, true);
+			  	xhttp.send();
+				
+			}
+
+			function setAddress() {
+				var list = [1, 2, 3, 4];
+				console.log(list);
+				list.forEach(
+	    			function(item){
+			  			var xhttp = new XMLHttpRequest();
+					  	xhttp.onreadystatechange = function() {
+						    if (this.readyState == 4 && this.status == 200) {
+					    		var parsedData = JSON.parse(this.responseText);
+			    				document.getElementById("user"+ item + "_address").innerHTML = "public address "+ parsedData["address"];
+					    		
+						    }
+					  	};
+					  	xhttp.open("GET", "http://localhost:500"+item+"/ping", true);
+					  	xhttp.send();
+					})
+				
+			}
+		loadXMLDoc1();
+		loadXMLDoc2();
+		loadXMLDoc3();
+		loadXMLDoc4();
+		setAddress()
+		</script>
+
+	</body>
+</html>
+

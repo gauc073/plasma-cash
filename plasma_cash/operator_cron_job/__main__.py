@@ -5,8 +5,8 @@ from .job_handler import JobHandler
 from .jobs.apply_deposit_job import ApplyDepositJob
 from .jobs.submit_block_job import SubmitBlockJob
 
-SUBMIT_BLOCK_INTERVAL = 5
-APPLY_DEPOSIT_INTERVAL = 1
+SUBMIT_BLOCK_INTERVAL = 20
+APPLY_DEPOSIT_INTERVAL = 5
 
 
 def setup_job_handler(job_handler):
