@@ -64,7 +64,7 @@ pysha3==1.0.2
 pytest==3.5.0
 PyYAML==5.1.2
 repoze.lru==0.7
-requests==2.18.4
+requests==2.20.0
 rlp==0.6.0
 scrypt==0.8.13
 semantic-version==2.6.0
