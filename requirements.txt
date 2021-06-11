@@ -75,6 +75,6 @@ varint==1.0.2
 wcwidth==0.1.7
 web3==4.2.0
 websocket-client==0.48.0
-websockets==7.0
+websockets==9.1
 Werkzeug==0.15.5
 zipp==0.5.2
